@@ -33,29 +33,29 @@ FastCRC32 CRC32;
 
 // Supporting functions for Software CRC
 
-inline uint16_t softcrc(uint16_t seed, uint8_t *data, uint16_t datalen) {
-  for (uint16_t i = 0; i < datalen; i++) {
+inline uint16_t softcrc(uint16_t seed, uint8_t *data, uint32_t datalen) {
+  for (uint32_t i = 0; i < datalen; i++) {
     seed = _crc16_update(seed,  data[i]);
   }
   return seed;
 }
 
-inline uint16_t softcrcIbutton(uint16_t seed, uint8_t *data, uint16_t datalen) {
-  for (uint16_t i = 0; i < datalen; i++) {
+inline uint16_t softcrcIbutton(uint16_t seed, uint8_t *data, uint32_t datalen) {
+  for (uint32_t i = 0; i < datalen; i++) {
     seed = _crc_ibutton_update(seed,  data[i]);
   }
   return seed;
 }
 
-inline uint16_t softcrcCCIT(uint16_t seed, uint8_t *data, uint16_t datalen) {
-  for (uint16_t i = 0; i < datalen; i++) {
+inline uint16_t softcrcCCIT(uint16_t seed, uint8_t *data, uint32_t datalen) {
+  for (uint32_t i = 0; i < datalen; i++) {
     seed = _crc_ccitt_update(seed,  data[i]);
   }
   return seed;
 }
 
-inline uint16_t softcrcXMODEM(uint16_t seed, uint8_t *data, uint16_t datalen) {
-  for (uint16_t i = 0; i < datalen; i++) {
+inline uint16_t softcrcXMODEM(uint16_t seed, uint8_t *data, uint32_t datalen) {
+  for (uint32_t i = 0; i < datalen; i++) {
     seed = _crc_xmodem_update(seed,  data[i]);
   }
   return seed;

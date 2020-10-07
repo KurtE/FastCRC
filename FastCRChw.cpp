@@ -78,7 +78,7 @@ FastCRC7::FastCRC7(){
  * @param datalen Length of Data
  * @return CRC value
  */
-uint8_t FastCRC7::crc7(const uint8_t *data, const uint16_t datalen)
+uint8_t FastCRC7::crc7(const uint8_t *data, const uint32_t datalen)
 {
   // poly=0x09 init=0x00 refin=false refout=false xorout=0x00 check=0x75
    return (generic(0x09, 0, CRC_FLAG_NOREFLECT, data, datalen));
@@ -90,7 +90,7 @@ uint8_t FastCRC7::crc7(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint8_t FastCRC7::update(const uint8_t *data, const uint16_t datalen)
+uint8_t FastCRC7::update(const uint8_t *data, const uint32_t datalen)
 {
 
   const uint8_t *src = data;
@@ -126,7 +126,7 @@ uint8_t FastCRC7::update(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint8_t FastCRC7::generic(const uint8_t polynom, const uint8_t seed, const uint32_t flags, const uint8_t *data,const uint16_t datalen)
+uint8_t FastCRC7::generic(const uint8_t polynom, const uint8_t seed, const uint32_t flags, const uint8_t *data,const uint32_t datalen)
 {
 
   rCRC->CTRL  = flags | (1<<CRC_CTRL_TCRC) | (1<<CRC_CTRL_WAS);                      // 32Bit Mode, Prepare to write seed(25)
@@ -137,7 +137,7 @@ uint8_t FastCRC7::generic(const uint8_t polynom, const uint8_t seed, const uint3
   return update(data, datalen);
 }
 
-uint8_t FastCRC7::crc7_upd(const uint8_t *data, uint16_t datalen){return update(data, datalen);}
+uint8_t FastCRC7::crc7_upd(const uint8_t *data, uint32_t datalen){return update(data, datalen);}
 
 
 
@@ -157,7 +157,7 @@ FastCRC8::FastCRC8(){
  * @param datalen Length of Data
  * @return CRC value
  */
-uint8_t FastCRC8::smbus(const uint8_t *data, const uint16_t datalen)
+uint8_t FastCRC8::smbus(const uint8_t *data, const uint32_t datalen)
 {
   // poly=0x07 init=0x00 refin=false refout=false xorout=0x00 check=0xf4
   return generic(0x07, 0, CRC_FLAG_NOREFLECT, data, datalen);
@@ -169,7 +169,7 @@ uint8_t FastCRC8::smbus(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint8_t FastCRC8::maxim(const uint8_t *data, const uint16_t datalen)
+uint8_t FastCRC8::maxim(const uint8_t *data, const uint32_t datalen)
 {
   // poly=0x31 init=0x00 refin=true refout=true xorout=0x00  check=0xa1
   return generic(0x31, 0, CRC_FLAG_REFLECT, data, datalen);
@@ -181,7 +181,7 @@ uint8_t FastCRC8::maxim(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint8_t FastCRC8::update(const uint8_t *data, const uint16_t datalen)
+uint8_t FastCRC8::update(const uint8_t *data, const uint32_t datalen)
 {
 
   const uint8_t *src = data;
@@ -214,7 +214,7 @@ uint8_t FastCRC8::update(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint8_t FastCRC8::generic(const uint8_t polynom, const uint8_t seed, const uint32_t flags, const uint8_t *data,const uint16_t datalen)
+uint8_t FastCRC8::generic(const uint8_t polynom, const uint8_t seed, const uint32_t flags, const uint8_t *data,const uint32_t datalen)
 {
 
   rCRC->CTRL  = flags | (1<<CRC_CTRL_TCRC) | (1<<CRC_CTRL_WAS);                      // 32Bit Mode, Prepare to write seed(25)
@@ -224,8 +224,8 @@ uint8_t FastCRC8::generic(const uint8_t polynom, const uint8_t seed, const uint3
 
   return update(data, datalen);
 }
-uint8_t FastCRC8::smbus_upd(const uint8_t *data, uint16_t datalen){return update(data, datalen);}
-uint8_t FastCRC8::maxim_upd(const uint8_t *data, uint16_t datalen){return update(data, datalen);}
+uint8_t FastCRC8::smbus_upd(const uint8_t *data, uint32_t datalen){return update(data, datalen);}
+uint8_t FastCRC8::maxim_upd(const uint8_t *data, uint32_t datalen){return update(data, datalen);}
 
 
 
@@ -243,7 +243,7 @@ FastCRC14::FastCRC14(){
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC14::darc(const uint8_t *data,const uint16_t datalen)
+uint16_t FastCRC14::darc(const uint8_t *data,const uint32_t datalen)
 {
  // poly=0x0805 init=0x0000 refin=true refout=true xorout=0x0000 check=0x082d residue=0x0000
   return generic(0x0805, 0x0000, CRC_FLAG_REFLECT, data, datalen);
@@ -254,7 +254,7 @@ uint16_t FastCRC14::darc(const uint8_t *data,const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC14::gsm(const uint8_t *data,const uint16_t datalen)
+uint16_t FastCRC14::gsm(const uint8_t *data,const uint32_t datalen)
 {
  //  poly=0x202d init=0x0000 refin=false refout=false xorout=0x3fff check=0x30ae residue=0x031e
   return generic(0x202d, 0x0000, CRC_FLAG_NOREFLECT | CRC_FLAG_XOR, data, datalen);
@@ -265,7 +265,7 @@ uint16_t FastCRC14::gsm(const uint8_t *data,const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC14::eloran(const uint8_t *data,const uint16_t datalen)
+uint16_t FastCRC14::eloran(const uint8_t *data,const uint32_t datalen)
 {
  // poly=0x60b1 init=0x0000 refin=false refout=false xorout=0x0000 check=0x38d1
   return generic(0x60b1, 0x0, CRC_FLAG_NOREFLECT , data, datalen);
@@ -277,7 +277,7 @@ uint16_t FastCRC14::eloran(const uint8_t *data,const uint16_t datalen)
  * @return CRC value
  */
 /*
-uint16_t FastCRC14::ft4(const uint8_t *data,const uint16_t datalen)
+uint16_t FastCRC14::ft4(const uint8_t *data,const uint32_t datalen)
 {
 
   return generic(, ,  , data, datalen);
@@ -290,7 +290,7 @@ uint16_t FastCRC14::ft4(const uint8_t *data,const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC14::update(const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC14::update(const uint8_t *data, const uint32_t datalen)
 {
   const uint8_t *src = data;
   const uint8_t *target = src + datalen;
@@ -322,7 +322,7 @@ uint16_t FastCRC14::update(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC14::generic(const uint16_t polynom, const uint16_t seed, const uint32_t flags, const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC14::generic(const uint16_t polynom, const uint16_t seed, const uint32_t flags, const uint8_t *data, const uint32_t datalen)
 {
 
   rCRC->CTRL  = flags | (1<<CRC_CTRL_TCRC) | (1<<CRC_CTRL_WAS);// 32-Bit Mode, prepare to write seed(25)
@@ -354,7 +354,7 @@ FastCRC16::FastCRC16(){
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::ccitt(const uint8_t *data,const uint16_t datalen)
+uint16_t FastCRC16::ccitt(const uint8_t *data,const uint32_t datalen)
 {
  // poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
   return generic(0x1021, 0XFFFF, CRC_FLAG_NOREFLECT, data, datalen);
@@ -366,7 +366,7 @@ uint16_t FastCRC16::ccitt(const uint8_t *data,const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::mcrf4xx(const uint8_t *data,const uint16_t datalen)
+uint16_t FastCRC16::mcrf4xx(const uint8_t *data,const uint32_t datalen)
 {
  // poly=0x1021 init=0xffff refin=true refout=true xorout=0x0000 check=0x6f91
   return generic(0x1021, 0XFFFF, CRC_FLAG_REFLECT , data, datalen);
@@ -378,7 +378,7 @@ uint16_t FastCRC16::mcrf4xx(const uint8_t *data,const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::modbus(const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC16::modbus(const uint8_t *data, const uint32_t datalen)
 {
  // poly=0x8005 init=0xffff refin=true refout=true xorout=0x0000 check=0x4b37
   return generic(0x8005, 0XFFFF, CRC_FLAG_REFLECT, data, datalen);
@@ -390,7 +390,7 @@ uint16_t FastCRC16::modbus(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::kermit(const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC16::kermit(const uint8_t *data, const uint32_t datalen)
 {
  // poly=0x1021 init=0x0000 refin=true refout=true xorout=0x0000 check=0x2189
  // sometimes byteswapped presentation of result
@@ -403,7 +403,7 @@ uint16_t FastCRC16::kermit(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::xmodem(const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC16::xmodem(const uint8_t *data, const uint32_t datalen)
 {
   //width=16 poly=0x1021 init=0x0000 refin=false refout=false xorout=0x0000 check=0x31c3
   return generic(0x1021, 0, CRC_FLAG_NOREFLECT, data, datalen);
@@ -415,7 +415,7 @@ uint16_t FastCRC16::xmodem(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::x25(const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC16::x25(const uint8_t *data, const uint32_t datalen)
 {
   // poly=0x1021 init=0xffff refin=true refout=true xorout=0xffff check=0x906e
   return generic(0x1021, 0XFFFF, CRC_FLAG_REFLECT | CRC_FLAG_XOR, data, datalen);
@@ -427,7 +427,7 @@ uint16_t FastCRC16::x25(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::update(const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC16::update(const uint8_t *data, const uint32_t datalen)
 {
   const uint8_t *src = data;
   const uint8_t *target = src + datalen;
@@ -459,7 +459,7 @@ uint16_t FastCRC16::update(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint16_t FastCRC16::generic(const uint16_t polynom, const uint16_t seed, const uint32_t flags, const uint8_t *data, const uint16_t datalen)
+uint16_t FastCRC16::generic(const uint16_t polynom, const uint16_t seed, const uint32_t flags, const uint8_t *data, const uint32_t datalen)
 {
 
   rCRC->CTRL  = flags | (1<<CRC_CTRL_TCRC) | (1<<CRC_CTRL_WAS);// 32-Bit Mode, prepare to write seed(25)
@@ -494,7 +494,7 @@ FastCRC32::FastCRC32(){
  * @param datalen Length of Data
  * @return CRC value
  */
-uint32_t FastCRC32::crc32(const uint8_t *data, const uint16_t datalen)
+uint32_t FastCRC32::crc32(const uint8_t *data, const uint32_t datalen)
 {
   // poly=0x04c11db7 init=0xffffffff refin=true refout=true xorout=0xffffffff check=0xcbf43926
   return generic(0x04C11DB7L, 0XFFFFFFFFL, CRC_FLAG_REFLECT | CRC_FLAG_XOR, data, datalen);
@@ -506,7 +506,7 @@ uint32_t FastCRC32::crc32(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint32_t FastCRC32::cksum(const uint8_t *data, const uint16_t datalen)
+uint32_t FastCRC32::cksum(const uint8_t *data, const uint32_t datalen)
 {
   // width=32 poly=0x04c11db7 init=0x00000000 refin=false refout=false xorout=0xffffffff check=0x765e7680
   return generic(0x04C11DB7L, 0, CRC_FLAG_NOREFLECT | CRC_FLAG_XOR, data, datalen);
@@ -519,7 +519,7 @@ uint32_t FastCRC32::cksum(const uint8_t *data, const uint16_t datalen)
  * @return CRC value
  */
 //#pragma GCC diagnostic ignored "-Wpointer-arith"
-uint32_t FastCRC32::update(const uint8_t *data, const uint16_t datalen)
+uint32_t FastCRC32::update(const uint8_t *data, const uint32_t datalen)
 {
 
   const uint8_t *src = data;
@@ -549,7 +549,7 @@ uint32_t FastCRC32::update(const uint8_t *data, const uint16_t datalen)
  * @param datalen Length of Data
  * @return CRC value
  */
-uint32_t FastCRC32::generic(const uint32_t polynom, const uint32_t seed, const uint32_t flags, const uint8_t *data, const uint16_t datalen)
+uint32_t FastCRC32::generic(const uint32_t polynom, const uint32_t seed, const uint32_t flags, const uint8_t *data, const uint32_t datalen)
 {
 
   rCRC->CTRL  = flags | (1<<CRC_CTRL_TCRC) | (1<<CRC_CTRL_WAS); // 32Bit Mode, prepare to write seed(25)
